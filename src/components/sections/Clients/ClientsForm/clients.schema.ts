@@ -1,4 +1,4 @@
-import { Client, ClientStatus } from '@prisma/client'
+import { Client, Status } from '@prisma/client'
 import { z } from 'zod'
 
 export const clientFormSchema: z.ZodType<Partial<Client>> = z.object({
@@ -7,7 +7,7 @@ export const clientFormSchema: z.ZodType<Partial<Client>> = z.object({
   company: z.string().optional(),
   website: z.string().optional(),
   logo: z.string().optional(),
-  status: z.nativeEnum(ClientStatus).optional(),
+  status: z.nativeEnum(Status).optional(),
 })
 
 export type ClientFormSchema = z.infer<typeof clientFormSchema>
