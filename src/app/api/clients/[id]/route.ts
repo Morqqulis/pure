@@ -1,14 +1,14 @@
 import prisma from '@/lib/prisma'
 import { NextResponse } from 'next/server'
 
-export async function PUT(request: Request, { params }: { params: { id: string } }) {
+export async function PUT(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
     const data = await request.json()
-
+    const { id } = await params
     // const stationIds = Array.isArray(data.stationIds) ? data.stationIds.map(Number) : []
 
     const client = await prisma.client.update({
-      where: { id: Number(params.id) },
+      where: { id: Number(id) },
       data: {
         ...data,
         // stationIds,
@@ -22,10 +22,11 @@ export async function PUT(request: Request, { params }: { params: { id: string }
   }
 }
 
-export async function DELETE(request: Request, { params }: { params: { id: string } }) {
+export async function DELETE(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
+    const { id } = await params
     await prisma.client.delete({
-      where: { id: Number(params.id) },
+      where: { id: Number(id) },
     })
 
     return NextResponse.json({ success: true })
