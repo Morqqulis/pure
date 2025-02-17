@@ -1,0 +1,78 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("TEST_DATABASE_URL")
+}
+
+model Client {
+  id        Int      @id @default(autoincrement())
+  name      String?  @default("")
+  email     String?  @unique
+  company   String?  @default("")
+  website   String?  @default("")
+  logo      String?  @default("")
+  status    Status?  @default(active)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum Status {
+  active
+  inactive
+}
+
+model Station {
+  id             Int        @id @default(autoincrement())
+  name           String?
+  website        String?
+  status         Status?    @default(active)
+  omniplayerUrl  String?
+  clientId       Int?
+  clientSecret   String?
+  username       String?
+  password       String?
+  locationId     Int?
+  locations      Location[]
+  systemPrompt   String?
+  hourlyPrompt0  String?
+  hourlyPrompt10 String?
+  hourlyPrompt20 String?
+  hourlyPrompt30 String?
+  hourlyPrompt40 String?
+  hourlyPrompt50 String?
+  hourlyPrompt55 String?
+  newsPrompt     String?
+  weatherPrompt  String?
+  trafficPrompt  String?
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+}
+
+model Location {
+  id        Int      @id @default(autoincrement())
+  name      String?  @default("")
+  code      String?  @unique
+  country   String?  @default("")
+  city      String?  @default("")
+  timezone  String?  @default("")
+  createdAt DateTime @default(now())
+  Station   Station? @relation(fields: [stationId], references: [id])
+  stationId Int?
+}
+
+model Voice {
+  id        Int      @id @default(autoincrement())
+  name      String?
+  voiceId   String?
+  gender    String?
+  language  String?
+  accent    String?
+  age       Int?
+  category  String?
+  country   String?
+  status    Status?
+  createdAt DateTime @default(now())
+}
