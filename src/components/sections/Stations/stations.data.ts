@@ -1,4 +1,4 @@
-import { StationFormFieldProps, StationFormSchema } from './station.types'
+import { StationFormFieldProps, StationFormSchema } from './stations.types'
 
 export const promptsFormFields: StationFormFieldProps[] = [
   {

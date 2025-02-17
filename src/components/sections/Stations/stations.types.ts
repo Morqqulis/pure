@@ -1,4 +1,3 @@
-import { Status } from '@prisma/client'
 import { InputHTMLAttributes } from 'react'
 import { z } from 'zod'
 import { stationFormSchema } from './stations.schema'
@@ -6,10 +5,10 @@ import { stationFormSchema } from './stations.schema'
 export interface StationFormFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   name: keyof z.infer<typeof stationFormSchema>
   label: string
-  type: InputHTMLAttributes<HTMLInputElement>['type']
+  type: string
   placeholder?: string
   required: boolean
-  options?: Status[]
+  options?: string[]
 }
 
 export type StationFormSchema = z.infer<typeof stationFormSchema>

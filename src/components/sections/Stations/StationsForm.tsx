@@ -12,9 +12,9 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import axios from 'axios'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
-import { StationFormSchema } from './station.types'
 import { generalFormFields, promptsFormFields, stationFormDefaultValues } from './stations.data'
 import { stationFormSchema } from './stations.schema'
+import { StationFormSchema } from './stations.types'
 
 export default function StationsForm({ variant, inModal, initialData }: IFormProps<StationFormSchema>) {
   const queryClient = useQueryClient()
@@ -40,9 +40,7 @@ export default function StationsForm({ variant, inModal, initialData }: IFormPro
 
   const updateStation = useMutation({
     mutationFn: async (data: StationFormSchema) => {
-      const validatedData = stationFormSchema.parse(data)
-      console.log(validatedData)
-      return await axios.put(`/api/stations/${data.id}`, validatedData).then((res) => res.data)
+      return await axios.put(`/api/stations/${data.id}`, data).then((res) => res.data)
     },
     onSuccess: () => {
       toast.success('Station updated successfully')
